@@ -1,0 +1,17 @@
+pandas
+numpy
+scikit-learn
+joblib
+mlflow
+dvc
+PyYAML
+python-box
+ruamel.yaml
+fastapi
+uvicorn
+pydantic
+streamlit
+pytest
+flake8
+black
+isort

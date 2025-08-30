@@ -1,0 +1,30 @@
+stages:
+  ingest:
+    cmd: python src/data/ingest.py --out data/raw.csv
+    outs:
+      - data/raw.csv
+
+  preprocess:
+    cmd: python src/data/preprocess.py --inp data/raw.csv --out data/processed.csv
+    deps:
+      - data/raw.csv
+    outs:
+      - data/processed.csv
+
+  train:
+    cmd: python src/models/train.py --inp data/processed.csv --model models/model.joblib
+    deps:
+      - data/processed.csv
+      - configs/params.yaml
+    outs:
+      - models/model.joblib
+    metrics:
+      - outputs/metrics.json
+
+  evaluate:
+    cmd: python src/models/evaluate.py --inp data/processed.csv --model models/model.joblib --out outputs/report.json
+    deps:
+      - models/model.joblib
+      - data/processed.csv
+    outs:
+      - outputs/report.json
